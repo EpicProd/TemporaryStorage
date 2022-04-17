@@ -24,6 +24,10 @@ class ProviderInstance(Provider):
         return datetime.datetime.utcnow() + datetime.timedelta(days=retention)
 
     def check_file(self, file: File) -> bool:
+        if (file.path.endswith('.exe') or
+            file.path.endswith('.apk') or
+            file.path.endswith('jar')):
+            return False
         if file.file_size > self.max_file_size:
             return False
 
